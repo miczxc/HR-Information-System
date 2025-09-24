@@ -1,15 +1,13 @@
 <?php
 require_once __DIR__ . '/../config/config.php';
+include_once __DIR__ . "/../config/database.php";
 require_once __DIR__ . "/../controllers/employees.controller.php";
 
-$REQUEST_URI = $_SERVER["REQUEST_URI"];
 $REQUEST_METHOD = $_SERVER["REQUEST_METHOD"];
 
 
 if($REQUEST_METHOD === "GET"){
     $idParams = isset($_GET["id"]) ? $_GET["id"] : null;
-    echo "im here";
-    return;
     if(!$idParams) {
 
         $response = getEmployees($pdo);

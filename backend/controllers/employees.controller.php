@@ -1,7 +1,7 @@
 <?php
-    include_once __DIR__ . "/../config/database.php";
+    // include_once __DIR__ . "/../config/database.php";
 
-    function checkDuplicateEmail($email, $pdo){
+    function checkDuplicateEmailForEmployee($email, $pdo){
         $query = "SELECT COUNT(*) AS total FROM employees WHERE contact_email = :contact_email";
         try {
             $stmt = $pdo->prepare($query);
@@ -78,7 +78,7 @@
 
     function insertEmployee($employee, $pdo){
 
-        $isDuplicateEmail = checkDuplicateEmail($employee["email"], $pdo);
+        $isDuplicateEmail = checkDuplicateEmailForEmployee($employee["email"], $pdo);
 
         if($isDuplicateEmail["isExist"]){
             return $response = [
