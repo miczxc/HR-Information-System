@@ -1,34 +1,7 @@
 <?php
 require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../utils/checkDuplicateEmailForApplicant.php';
 
-function checkDuplicateEmailForApplicant($email, $pdo){
-        $query = "SELECT COUNT(*) AS total FROM recruitment_candidates WHERE email = :email";
-        try {
-            $stmt = $pdo->prepare($query);
-            $stmt->execute([":email" => $email]);
-            $isExist = $stmt->fetch();
-
-            if($isExist && $isExist["total"] > 0) {
-                $response = [
-                    "isExist" => true,
-                    "message" => "$email: Email already existing"
-
-                ];
-            }else {
-                $response = [
-                    "isExist" => false,
-                ];
-
-            }
-
-        } catch (PDOException $e) {
-            $response = [
-                    "isExist" => true,
-                    "message" => "Error: {$e->getMessage()}"
-                ];
-        }
-        return $response;
-    }
 
 function insertJobApplicant($pdo, $postData, $files) {
     // Absolute paths for saving
